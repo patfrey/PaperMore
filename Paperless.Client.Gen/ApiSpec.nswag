@@ -49,7 +49,13 @@
       "className": "PaperlessApiClient",
       "operationGenerationMode": "SingleClientFromPathSegments",
       "includedOperationIds": [],
-      "excludedOperationIds": [],
+      "excludedOperationIds": [
+        "tasks_run_create",
+        "workflow_actions_update",
+        "workflow_actions_partial_update",
+        "workflow_triggers_update",
+        "workflow_triggers_partial_update"
+      ],
       "additionalNamespaceUsages": [],
       "additionalContractNamespaceUsages": [],
       "generateOptionalParameters": true,
