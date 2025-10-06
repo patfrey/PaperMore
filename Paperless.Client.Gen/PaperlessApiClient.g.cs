@@ -33,14 +33,16 @@ namespace Paperless.Client.Gen
         private string _baseUrl;
         #pragma warning restore 8618
 
+        private System.Net.Http.HttpClient _httpClient;
         private static System.Lazy<System.Text.Json.JsonSerializerOptions> _settings = new System.Lazy<System.Text.Json.JsonSerializerOptions>(CreateSerializerSettings, true);
         private System.Text.Json.JsonSerializerOptions _instanceSettings;
 
     #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public PaperlessApiClient(string baseUrl)
+        public PaperlessApiClient(string baseUrl, System.Net.Http.HttpClient httpClient)
     #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             BaseUrl = baseUrl;
+            _httpClient = httpClient;
             Initialize();
         }
 
@@ -82,8 +84,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -159,8 +161,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ApplicationConfiguration>> ApiConfigGetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -233,8 +235,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -312,8 +314,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -392,8 +394,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -473,8 +475,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -543,8 +545,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<PaginatedCorrespondentList> ApiCorrespondentsGetAsync(bool? full_perms = null, int? id = null, System.Collections.Generic.IEnumerable<int>? id__in = null, string? name__icontains = null, string? name__iendswith = null, string? name__iexact = null, string? name__istartswith = null, string? ordering = null, int? page = null, int? page_size = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -672,8 +674,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -750,8 +752,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -835,8 +837,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -915,8 +917,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -996,8 +998,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1066,8 +1068,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<PaginatedCustomFieldList> ApiCustomFieldsGetAsync(int? id = null, System.Collections.Generic.IEnumerable<int>? id__in = null, string? name__icontains = null, string? name__iendswith = null, string? name__iexact = null, string? name__istartswith = null, string? ordering = null, int? page = null, int? page_size = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1192,8 +1194,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1270,8 +1272,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1350,8 +1352,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1431,8 +1433,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1512,8 +1514,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1582,8 +1584,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<PaginatedDocumentTypeList> ApiDocumentTypesGetAsync(bool? full_perms = null, int? id = null, System.Collections.Generic.IEnumerable<int>? id__in = null, string? name__icontains = null, string? name__iendswith = null, string? name__iexact = null, string? name__istartswith = null, string? ordering = null, int? page = null, int? page_size = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1711,8 +1713,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1789,8 +1791,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1874,8 +1876,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -1954,8 +1956,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -2035,8 +2037,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -2116,8 +2118,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<PaginatedDocumentList> ApiDocumentsGetAsync(System.DateTimeOffset? added__date__gt = null, System.DateTimeOffset? added__date__gte = null, System.DateTimeOffset? added__date__lt = null, System.DateTimeOffset? added__date__lte = null, double? added__day = null, System.DateTimeOffset? added__gt = null, System.DateTimeOffset? added__gte = null, System.DateTimeOffset? added__lt = null, System.DateTimeOffset? added__lte = null, double? added__month = null, double? added__year = null, int? archive_serial_number = null, int? archive_serial_number__gt = null, int? archive_serial_number__gte = null, bool? archive_serial_number__isnull = null, int? archive_serial_number__lt = null, int? archive_serial_number__lte = null, string? checksum__icontains = null, string? checksum__iendswith = null, string? checksum__iexact = null, string? checksum__istartswith = null, string? content__icontains = null, string? content__iendswith = null, string? content__iexact = null, string? content__istartswith = null, int? correspondent__id = null, System.Collections.Generic.IEnumerable<int>? correspondent__id__in = null, int? correspondent__id__none = null, bool? correspondent__isnull = null, string? correspondent__name__icontains = null, string? correspondent__name__iendswith = null, string? correspondent__name__iexact = null, string? correspondent__name__istartswith = null, System.DateTimeOffset? created__date__gt = null, System.DateTimeOffset? created__date__gte = null, System.DateTimeOffset? created__date__lt = null, System.DateTimeOffset? created__date__lte = null, double? created__day = null, System.DateTimeOffset? created__gt = null, System.DateTimeOffset? created__gte = null, System.DateTimeOffset? created__lt = null, System.DateTimeOffset? created__lte = null, double? created__month = null, double? created__year = null, string? custom_field_query = null, string? custom_fields__icontains = null, int? custom_fields__id__all = null, int? custom_fields__id__in = null, int? custom_fields__id__none = null, int? document_type__id = null, System.Collections.Generic.IEnumerable<int>? document_type__id__in = null, int? document_type__id__none = null, bool? document_type__isnull = null, string? document_type__name__icontains = null, string? document_type__name__iendswith = null, string? document_type__name__iexact = null, string? document_type__name__istartswith = null, System.Collections.Generic.IEnumerable<string>? fields = null, bool? full_perms = null, bool? has_custom_fields = null, int? id = null, System.Collections.Generic.IEnumerable<int>? id__in = null, bool? is_in_inbox = null, bool? is_tagged = null, string? mime_type = null, System.DateTimeOffset? modified__date__gt = null, System.DateTimeOffset? modified__date__gte = null, System.DateTimeOffset? modified__date__lt = null, System.DateTimeOffset? modified__date__lte = null, double? modified__day = null, System.DateTimeOffset? modified__gt = null, System.DateTimeOffset? modified__gte = null, System.DateTimeOffset? modified__lt = null, System.DateTimeOffset? modified__lte = null, double? modified__month = null, double? modified__year = null, string? ordering = null, string? original_filename__icontains = null, string? original_filename__iendswith = null, string? original_filename__iexact = null, string? original_filename__istartswith = null, int? owner__id = null, System.Collections.Generic.IEnumerable<int>? owner__id__in = null, int? owner__id__none = null, bool? owner__isnull = null, int? page = null, int? page_size = null, string? query = null, string? search = null, bool? shared_by__id = null, int? storage_path__id = null, System.Collections.Generic.IEnumerable<int>? storage_path__id__in = null, int? storage_path__id__none = null, bool? storage_path__isnull = null, string? storage_path__name__icontains = null, string? storage_path__name__iendswith = null, string? storage_path__name__iexact = null, string? storage_path__name__istartswith = null, int? tags__id = null, int? tags__id__all = null, int? tags__id__in = null, int? tags__id__none = null, string? tags__name__icontains = null, string? tags__name__iendswith = null, string? tags__name__iexact = null, string? tags__name__istartswith = null, string? title__icontains = null, string? title__iendswith = null, string? title__iexact = null, string? title__istartswith = null, string? title_content = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -2709,8 +2711,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -2809,8 +2811,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -2894,8 +2896,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -2978,8 +2980,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3051,8 +3053,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3099,7 +3101,7 @@ namespace Paperless.Client.Gen
                         if (status_ == 200 || status_ == 206)
                         {
                             var responseStream_ = response_.Content == null ? System.IO.Stream.Null : await ReadAsStreamAsync(response_.Content, cancellationToken).ConfigureAwait(false);
-                            var fileResponse_ = new FileResponse(status_, headers_, responseStream_, client_, response_);
+                            var fileResponse_ = new FileResponse(status_, headers_, responseStream_, null, response_);
                             disposeClient_ = false; disposeResponse_ = false; // response and client are disposed by FileResponse
                             return fileResponse_;
                         }
@@ -3137,8 +3139,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3246,8 +3248,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3353,8 +3355,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3453,8 +3455,8 @@ namespace Paperless.Client.Gen
             if (idPath == null)
                 throw new System.ArgumentNullException("idPath");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3570,8 +3572,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3688,8 +3690,8 @@ namespace Paperless.Client.Gen
             if (idPath == null)
                 throw new System.ArgumentNullException("idPath");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3799,8 +3801,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3841,7 +3843,7 @@ namespace Paperless.Client.Gen
                         if (status_ == 200 || status_ == 206)
                         {
                             var responseStream_ = response_.Content == null ? System.IO.Stream.Null : await ReadAsStreamAsync(response_.Content, cancellationToken).ConfigureAwait(false);
-                            var fileResponse_ = new FileResponse(status_, headers_, responseStream_, client_, response_);
+                            var fileResponse_ = new FileResponse(status_, headers_, responseStream_, null, response_);
                             disposeClient_ = false; disposeResponse_ = false; // response and client are disposed by FileResponse
                             return fileResponse_;
                         }
@@ -3875,8 +3877,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -3972,8 +3974,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4069,8 +4071,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4111,7 +4113,7 @@ namespace Paperless.Client.Gen
                         if (status_ == 200 || status_ == 206)
                         {
                             var responseStream_ = response_.Content == null ? System.IO.Stream.Null : await ReadAsStreamAsync(response_.Content, cancellationToken).ConfigureAwait(false);
-                            var fileResponse_ = new FileResponse(status_, headers_, responseStream_, client_, response_);
+                            var fileResponse_ = new FileResponse(status_, headers_, responseStream_, null, response_);
                             disposeClient_ = false; disposeResponse_ = false; // response and client are disposed by FileResponse
                             return fileResponse_;
                         }
@@ -4142,8 +4144,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4222,8 +4224,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4299,8 +4301,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<int> ApiDocumentsNextAsnAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4372,8 +4374,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<string> ApiDocumentsPostDocumentAsync(System.DateTimeOffset? created = null, FileParameter document = null, string? title = null, int? correspondent = null, int? document_type = null, int? storage_path = null, System.Collections.Generic.IEnumerable<int>? tags = null, long? archive_serial_number = null, System.Collections.Generic.IEnumerable<int>? custom_fields = null, bool? from_webui = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4524,8 +4526,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4601,8 +4603,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<PaginatedGroupList> ApiGroupsGetAsync(string? name__icontains = null, string? name__iendswith = null, string? name__iexact = null, string? name__istartswith = null, string? ordering = null, int? page = null, int? page_size = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4704,8 +4706,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4782,8 +4784,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4861,8 +4863,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -4941,8 +4943,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5022,8 +5024,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5091,8 +5093,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> ApiLogsGetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5167,8 +5169,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5247,8 +5249,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<PaginatedMailAccountList> ApiMailAccountsGetAsync(int? page = null, int? page_size = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5333,8 +5335,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5411,8 +5413,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5493,8 +5495,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5576,8 +5578,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5657,8 +5659,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5736,8 +5738,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5827,8 +5829,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -5913,8 +5915,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<PaginatedMailRuleList> ApiMailRulesGetAsync(int? page = null, int? page_size = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -6004,8 +6006,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -6082,8 +6084,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -6169,8 +6171,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -6257,8 +6259,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -6338,8 +6340,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -6408,8 +6410,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task ApiOauthCallbackAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -6475,8 +6477,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<Profile> ApiProfileGetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -6548,8 +6550,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<Profile> ApiProfilePatchAsync(PatchedProfileRequest? body = null, string? email = null, string? password = null, string? first_name = null, string? last_name = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -6625,8 +6627,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<int> ApiProfileDisconnectSocialAccountAsync(Body? body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -6713,8 +6715,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<string> ApiProfileGenerateAuthTokenAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -6787,8 +6789,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, object>> ApiProfileSocialAccountProvidersAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -6860,8 +6862,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, object>> ApiProfileTotpGetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -6933,8 +6935,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, object>> ApiProfileTotpPostAsync(Body2? body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -7010,8 +7012,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<bool> ApiProfileTotpDeleteAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -7093,8 +7095,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, object>> ApiRemoteVersionAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -7165,8 +7167,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<PaginatedSavedViewList> ApiSavedViewsGetAsync(int? page = null, int? page_size = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -7248,8 +7250,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -7326,8 +7328,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -7405,8 +7407,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -7485,8 +7487,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -7566,8 +7568,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -7640,8 +7642,8 @@ namespace Paperless.Client.Gen
             if (query == null)
                 throw new System.ArgumentNullException("query");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -7722,8 +7724,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> ApiSearchAutocompleteAsync(int? limit = null, string? term = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -7805,8 +7807,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<PaginatedShareLinkList> ApiShareLinksGetAsync(System.DateTimeOffset? created__date__gt = null, System.DateTimeOffset? created__date__gte = null, System.DateTimeOffset? created__date__lt = null, System.DateTimeOffset? created__date__lte = null, double? created__day = null, System.DateTimeOffset? created__gt = null, System.DateTimeOffset? created__gte = null, System.DateTimeOffset? created__lt = null, System.DateTimeOffset? created__lte = null, double? created__month = null, double? created__year = null, System.DateTimeOffset? expiration__date__gt = null, System.DateTimeOffset? expiration__date__gte = null, System.DateTimeOffset? expiration__date__lt = null, System.DateTimeOffset? expiration__date__lte = null, double? expiration__day = null, System.DateTimeOffset? expiration__gt = null, System.DateTimeOffset? expiration__gte = null, System.DateTimeOffset? expiration__lt = null, System.DateTimeOffset? expiration__lte = null, double? expiration__month = null, double? expiration__year = null, string? ordering = null, int? page = null, int? page_size = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -7977,8 +7979,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<ShareLink> ApiShareLinksPostAsync(ShareLinkRequest? body = null, System.DateTimeOffset? expiration = null, int? document = null, FileVersionEnum? file_version = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -8055,8 +8057,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -8131,8 +8133,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -8211,8 +8213,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -8292,8 +8294,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -8361,8 +8363,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, object>> ApiStatisticsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -8434,8 +8436,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<SystemStatus> ApiStatusAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -8508,8 +8510,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<PaginatedStoragePathList> ApiStoragePathsGetAsync(bool? full_perms = null, int? id = null, System.Collections.Generic.IEnumerable<int>? id__in = null, string? name__icontains = null, string? name__iendswith = null, string? name__iexact = null, string? name__istartswith = null, string? ordering = null, int? page = null, int? page_size = null, string? path__icontains = null, string? path__iendswith = null, string? path__iexact = null, string? path__istartswith = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -8653,8 +8655,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -8731,8 +8733,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -8816,8 +8818,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -8896,8 +8898,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -8981,8 +8983,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -9053,8 +9055,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -9131,8 +9133,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<PaginatedTagList> ApiTagsGetAsync(bool? full_perms = null, int? id = null, System.Collections.Generic.IEnumerable<int>? id__in = null, string? name__icontains = null, string? name__iendswith = null, string? name__iexact = null, string? name__istartswith = null, string? ordering = null, int? page = null, int? page_size = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -9261,8 +9263,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -9339,8 +9341,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -9425,8 +9427,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -9506,8 +9508,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -9587,8 +9589,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -9676,8 +9678,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TasksView>> ApiTasksGetAsync(bool? acknowledged = null, string? ordering = null, Aufgabenstatus? status = null, string? task_id = null, Aufgabenname? task_name = null, Aufgabentyp? type = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -9777,8 +9779,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -9859,8 +9861,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<AcknowledgeTasks> ApiTasksAcknowledgeAsync(string? task_id = null, Body3? body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -9975,8 +9977,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -10058,8 +10060,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -10135,8 +10137,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task ApiTrashGetAsync(int? page = null, int? page_size = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -10213,8 +10215,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -10281,8 +10283,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<UiSettingsView> ApiUiSettingsGetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -10351,8 +10353,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<UiSettingsView> ApiUiSettingsPostAsync(UiSettingsViewRequest? body = null, System.Collections.Generic.IDictionary<string, object>? settings = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -10428,8 +10430,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<PaginatedUserList> ApiUsersGetAsync(string? ordering = null, int? page = null, int? page_size = null, string? username__icontains = null, string? username__iendswith = null, string? username__iexact = null, string? username__istartswith = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -10536,8 +10538,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -10614,8 +10616,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -10698,8 +10700,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -10783,8 +10785,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -10864,8 +10866,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -10934,8 +10936,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -11019,8 +11021,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<PaginatedWorkflowActionList> ApiWorkflowActionsGetAsync(int? page = null, int? page_size = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -11101,8 +11103,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<WorkflowAction> ApiWorkflowActionsPostAsync(WorkflowActionRequest? body = null, int? id = null, WorkflowActionTypeEnum? type = null, string? assign_title = null, System.Collections.Generic.IEnumerable<int?>? assign_tags = null, int? assign_correspondent = null, int? assign_document_type = null, int? assign_storage_path = null, int? assign_owner = null, System.Collections.Generic.IEnumerable<int>? assign_view_users = null, System.Collections.Generic.IEnumerable<int>? assign_view_groups = null, System.Collections.Generic.IEnumerable<int>? assign_change_users = null, System.Collections.Generic.IEnumerable<int>? assign_change_groups = null, System.Collections.Generic.IEnumerable<int>? assign_custom_fields = null, object? assign_custom_fields_values = null, bool? remove_all_tags = null, System.Collections.Generic.IEnumerable<int>? remove_tags = null, bool? remove_all_correspondents = null, System.Collections.Generic.IEnumerable<int>? remove_correspondents = null, bool? remove_all_document_types = null, System.Collections.Generic.IEnumerable<int>? remove_document_types = null, bool? remove_all_storage_paths = null, System.Collections.Generic.IEnumerable<int>? remove_storage_paths = null, System.Collections.Generic.IEnumerable<int>? remove_custom_fields = null, bool? remove_all_custom_fields = null, bool? remove_all_owners = null, System.Collections.Generic.IEnumerable<int>? remove_owners = null, bool? remove_all_permissions = null, System.Collections.Generic.IEnumerable<int>? remove_view_users = null, System.Collections.Generic.IEnumerable<int>? remove_view_groups = null, System.Collections.Generic.IEnumerable<int>? remove_change_users = null, System.Collections.Generic.IEnumerable<int>? remove_change_groups = null, WorkflowActionEmailRequest? email = null, WorkflowActionWebhookRequest? webhook = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -11179,8 +11181,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -11257,8 +11259,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -11339,8 +11341,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -11420,8 +11422,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -11488,8 +11490,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<PaginatedWorkflowTriggerList> ApiWorkflowTriggersGetAsync(int? page = null, int? page_size = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -11582,8 +11584,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -11660,8 +11662,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -11750,8 +11752,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -11841,8 +11843,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -11922,8 +11924,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -11990,8 +11992,8 @@ namespace Paperless.Client.Gen
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<PaginatedWorkflowList> ApiWorkflowsGetAsync(int? page = null, int? page_size = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -12073,8 +12075,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -12151,8 +12153,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -12230,8 +12232,8 @@ namespace Paperless.Client.Gen
             if (body == null)
                 throw new System.ArgumentNullException("body");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -12310,8 +12312,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
@@ -12391,8 +12393,8 @@ namespace Paperless.Client.Gen
             if (id == null)
                 throw new System.ArgumentNullException("id");
 
-            var client_ = new System.Net.Http.HttpClient();
-            var disposeClient_ = true;
+            var client_ = _httpClient;
+            var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
