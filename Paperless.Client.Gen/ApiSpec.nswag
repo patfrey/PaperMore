@@ -47,7 +47,7 @@
       "serializeTypeInformation": false,
       "queryNullValue": "",
       "className": "PaperlessApiClient",
-      "operationGenerationMode": "MultipleClientsFromOperationId",
+      "operationGenerationMode": "SingleClientFromPathSegments",
       "includedOperationIds": [],
       "excludedOperationIds": [],
       "additionalNamespaceUsages": [],
