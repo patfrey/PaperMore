@@ -11,4 +11,8 @@
       <ProjectReference Include="..\Paperless.Client.Gen\Paperless.Client.Gen.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="CommunityToolkit.Diagnostics" Version="8.4.0" />
+    </ItemGroup>
+
 </Project>
