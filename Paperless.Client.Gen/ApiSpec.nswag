@@ -48,14 +48,11 @@
       "queryNullValue": "",
       "className": "PaperlessApiClient",
       "operationGenerationMode": "SingleClientFromPathSegments",
-      "includedOperationIds": [],
-      "excludedOperationIds": [
-        "tasks_run_create",
-        "workflow_actions_update",
-        "workflow_actions_partial_update",
-        "workflow_triggers_update",
-        "workflow_triggers_partial_update"
+      "includedOperationIds": [
+        "documents_list",
+        "correspondents_list"
       ],
+      "excludedOperationIds": [],
       "additionalNamespaceUsages": [],
       "additionalContractNamespaceUsages": [],
       "generateOptionalParameters": true,
