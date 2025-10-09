@@ -30,7 +30,7 @@ public class PdfGenerator : IReportGenerator
                     {
                         text.DefaultTextStyle(style =>
                             style.SemiBold()
-                                .FontSize(20)
+                                .FontSize(16)
                                 .FontColor(Colors.Black)
                         );
                         text.Span("Paperless Index ");
@@ -40,11 +40,19 @@ public class PdfGenerator : IReportGenerator
                     });
 
                 page.Footer()
-                    .Text($"{DateTime.Now.ToShortDateString()}, {DateTime.Now.ToLongTimeString()}")
-                    .AlignEnd()
-                    .Italic()
-                    .FontSize(6);
-
+                    .Column(col =>
+                    {
+                        col.Item()
+                            .Text($"Total documents #{data.Count}")
+                            .AlignStart()
+                            .Italic()
+                            .FontSize(6);
+                        col.Item()
+                            .Text($"{DateTime.Now.ToShortDateString()}, {DateTime.Now.ToLongTimeString()}")
+                            .AlignEnd()
+                            .Italic()
+                            .FontSize(6);
+                    });
 
                 page.Content()
                     .Table(table =>
@@ -83,8 +91,8 @@ public class PdfGenerator : IReportGenerator
                         });
 
                         int rowNumber = 1;
-                        const int CellPadding = 4;
-               
+                        const int cellPadding = 4;
+                        
                         foreach (DocumentReportData item in data)
                         {
                             Color cellBackground;
@@ -92,26 +100,26 @@ public class PdfGenerator : IReportGenerator
                                 cellBackground = Colors.White;
                             else
                                 cellBackground = Colors.Grey.Lighten1;
-                            
+
                             table.Cell().Background(cellBackground)
-                                .Padding(CellPadding)
+                                .Padding(cellPadding)
                                 .Text(item.Correspondent);
                             table.Cell().Background(cellBackground)
-                                .Padding(CellPadding)
+                                .Padding(cellPadding)
                                 .Text(item.Title);
                             table.Cell().Background(cellBackground)
-                                .Padding(CellPadding)
+                                .Padding(cellPadding)
                                 .AlignCenter()
                                 .Text(item.DocumentDate.Date.ToShortDateString());
                             table.Cell().Background(cellBackground)
-                                .Padding(CellPadding)
+                                .Padding(cellPadding)
                                 .AlignCenter()
                                 .Text(item.AddedDate.Date.ToShortDateString());
                             table.Cell().Background(cellBackground)
-                                .Padding(CellPadding)
+                                .Padding(cellPadding)
                                 .AlignRight()
                                 .Text(item.ASN is not null ? $"#{item.ASN.ToString()}" : string.Empty);
-
+                            
                             rowNumber++;
                         }
                     });
