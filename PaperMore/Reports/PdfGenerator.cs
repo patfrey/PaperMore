@@ -45,19 +45,19 @@ public class PdfGenerator : IReportGenerator
                     });
 
                 page.Footer()
-                    .Column(col =>
+                    .Row(row =>
                     {
-                        col.Item()
+                        row.RelativeItem()
                             .Text($"Total documents #{data.Count}")
                             .AlignStart()
                             .Italic()
                             .FontSize(6);
-                        col.Item()
+                        row.RelativeItem()
                             .Text($"Current ASN #{currentASM}")
                             .AlignCenter()
                             .Italic()
                             .FontSize(6);
-                        col.Item()
+                        row.RelativeItem()
                             .Text($"{DateTime.Now.ToShortDateString()}, {DateTime.Now.ToLongTimeString()}")
                             .AlignEnd()
                             .Italic()
