@@ -13,6 +13,7 @@ public class PdfGenerator : IReportGenerator
 
     public void Generate(List<DocumentReportData> data, Stream outputStream)
     {
+        long currentASM = data.Max(d => d.ASN ?? 0);
         var document = Document.Create(doc =>
         {
             doc.Page(page =>
@@ -45,6 +46,11 @@ public class PdfGenerator : IReportGenerator
                         col.Item()
                             .Text($"Total documents #{data.Count}")
                             .AlignStart()
+                            .Italic()
+                            .FontSize(6);
+                        col.Item()
+                            .Text($"Current ASN #{currentASM}")
+                            .AlignCenter()
                             .Italic()
                             .FontSize(6);
                         col.Item()
