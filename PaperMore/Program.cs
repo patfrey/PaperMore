@@ -27,6 +27,7 @@ class Program
                 break;
             default:
                 generator = new PdfGenerator();
+                (generator as PdfGenerator)!.BlankLines = cmdArgs.BlankLines;
                 break;
         }
         

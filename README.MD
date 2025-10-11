@@ -16,6 +16,7 @@ PaperMore.exe --url <API_URL> --token <API_TOKEN> --format <csv|pdf> --path <OUT
 - `--token`: API token for authentication
 - `--format`: (optional) Output format (`csv` or `pdf`, default `pdf`)
 - `--path`: Path to save the generated report
+- `--blanklines`: Add blank lines to the PDF report, useful reserve space for newly added documents
 
 > Note: BasicAuth login to the paperless api is not supported
 

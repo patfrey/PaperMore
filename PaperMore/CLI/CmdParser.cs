@@ -32,11 +32,20 @@ public class CmdParser
             Required = true
         };
 
+        Option<int> blankLinesOptions = new Option<int>("--blanklines")
+        {
+            Description =
+                "Number of blank lines to include in the pdf report, use this to add space for manually adding documents",
+            DefaultValueFactory = result => 0,
+            Required = true
+        };
+        
         RootCommand rootCommand = new RootCommand("Create a report of all documents in you paperless-ngx instance");
         rootCommand.Add(urlOption);
         rootCommand.Add(tokenOption);
         rootCommand.Add(formatOption);
         rootCommand.Add(pathOption);
+        rootCommand.Add(blankLinesOptions);
         
         ParseResult result = rootCommand.Parse(args);
 
@@ -56,8 +65,9 @@ public class CmdParser
         string token = result.GetRequiredValue(tokenOption);
         FormatType format = result.GetRequiredValue(formatOption);
         string pathOutput = result.GetRequiredValue(pathOption);
+        int blankLines = result.GetRequiredValue(blankLinesOptions);
 
-        arguments = new CmdArgs(url, token, format, pathOutput);
+        arguments = new CmdArgs(url, token, format, pathOutput, blankLines);
         return true;
     }
 }

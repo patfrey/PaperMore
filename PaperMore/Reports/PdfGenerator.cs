@@ -6,9 +6,13 @@ namespace PaperMore.Reports;
 
 public class PdfGenerator : IReportGenerator
 {
+
+    public int BlankLines { get; set; }
+    
     public PdfGenerator()
     {
         QuestPDF.Settings.License = LicenseType.Community;
+        BlankLines = 0;
     }
 
     public void Generate(List<DocumentReportData> data, Stream outputStream)
@@ -125,6 +129,37 @@ public class PdfGenerator : IReportGenerator
                                 .Padding(cellPadding)
                                 .AlignRight()
                                 .Text(item.ASN is not null ? $"#{item.ASN.ToString()}" : string.Empty);
+                            
+                            rowNumber++;
+                        }
+
+                        // Add blank lines to manually add new documents if set
+                        for (int i = 0; i < BlankLines; i++)
+                        {
+                            Color cellBackground;
+                            if (rowNumber % 2 == 0)
+                                cellBackground = Colors.White;
+                            else
+                                cellBackground = Colors.Grey.Lighten1;
+                            
+                            table.Cell().Background(cellBackground)
+                                .Padding(cellPadding)
+                                .Text(string.Empty);
+                            table.Cell().Background(cellBackground)
+                                .Padding(cellPadding)
+                                .Text(string.Empty);
+                            table.Cell().Background(cellBackground)
+                                .Padding(cellPadding)
+                                .AlignCenter()
+                                .Text(string.Empty);
+                            table.Cell().Background(cellBackground)
+                                .Padding(cellPadding)
+                                .AlignCenter()
+                                .Text(string.Empty);
+                            table.Cell().Background(cellBackground)
+                                .Padding(cellPadding)
+                                .AlignRight()
+                                .Text(string.Empty);
                             
                             rowNumber++;
                         }
