@@ -13,8 +13,8 @@ class Program
         if(!cmdParser.TryParse(args, out var cmdArgs))
             Environment.Exit(1);
         
-        DocumentDataSource source = new DocumentDataSource();
-        List<DocumentReportData> results = source.GetDocumentData(cmdArgs.Url, cmdArgs.Token);
+        IDocumentDataSource source = new DocumentDataSource();
+        List<DocumentReportData> results = source.GetDocumentData(new DocumentQueryParams(cmdArgs.Url, cmdArgs.Token, cmdArgs.BatchSize));
         
         SortDocuments(results);
         

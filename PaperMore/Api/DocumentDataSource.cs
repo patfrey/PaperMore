@@ -4,13 +4,16 @@ using PaperMore.Reports;
 
 namespace PaperMore.Api;
 
-internal class DocumentDataSource
+internal class DocumentDataSource : IDocumentDataSource
 {
-    const int PageSize = 50;
-    public List<DocumentReportData> GetDocumentData(string apiEndpoint, string token)
+    private int _pageSize;
+    
+    public List<DocumentReportData> GetDocumentData(DocumentQueryParams queryParams)
     {
         using HttpClient client = new HttpClient();
-        PaperlessApiClient paperless = new PaperlessApiClient(apiEndpoint, token, client);
+        _pageSize = queryParams.PageSize;
+        
+        PaperlessApiClient paperless = new PaperlessApiClient(queryParams.ApiEndpoint, queryParams.Token, client);
         Task<List<DocumentReportData>> dataTask = QueryDocumentsAsync(paperless);
         dataTask.Wait();
 
@@ -28,7 +31,7 @@ internal class DocumentDataSource
         int currentPage = 1;
         do
         {
-            page = await paperless.ApiDocumentsGetAsync(page: currentPage, page_size: PageSize);
+            page = await paperless.ApiDocumentsGetAsync(page: currentPage, page_size: _pageSize);
             foreach (Document document in page.Results)
             {
                 documents.Add(document);    
@@ -80,7 +83,7 @@ internal class DocumentDataSource
         int currentPage = 1;
         do
         {
-            correspondents = await paperless.ApiCorrespondentsGetAsync(id__in: correspondentsIds, page: currentPage, page_size: PageSize);
+            correspondents = await paperless.ApiCorrespondentsGetAsync(id__in: correspondentsIds, page: currentPage, page_size: _pageSize);
             foreach (Correspondent correspondent in correspondents.Results)
             {
                 results.Add(correspondent);
