@@ -2,7 +2,7 @@ name: dotnet publish
 
 on:
   release: 
-    types: published
+    types: [published]
 
 permissions:
   contents: write
