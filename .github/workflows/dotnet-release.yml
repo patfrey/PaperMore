@@ -4,6 +4,9 @@ on:
   release: 
     types: published
 
+permissions:
+  contents: write
+
 env:
   DOTNET_VERSION: "9.x.x"
   DOTNET_TFM: "net9.0"
