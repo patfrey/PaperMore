@@ -7,32 +7,32 @@ public class CmdParser
 {
     public bool TryParse(string[] args, out CmdArgs arguments)
     {
-        Option<string> urlOption = new Option<string>("--url")
+        Option<string> urlOption = new Option<string>("--url", ["-u"])
         {
             Description = "URL of you paperless-ngx instance",
             Required = true
         };
 
-        Option<string> tokenOption = new Option<string>("--token")
+        Option<string> tokenOption = new Option<string>("--token", ["-t"])
         {
             Description = "Personal access token for you paperless-ngx instance",
             Required = true
         };
 
-        Option<FormatType> formatOption = new Option<FormatType>("--format")
+        Option<FormatType> formatOption = new Option<FormatType>("--format", ["-f"])
         {
-            Description = "Output type of the report (csv or pdf)",
+            Description = "Output type of the report",
             DefaultValueFactory = result => FormatType.Pdf,
             Required = true
         };
 
-        Option<string> pathOption = new Option<string>("--path")
+        Option<string> pathOption = new Option<string>("--path", ["-p"])
         {
             Description = "Path to write report to",
             Required = true
         };
 
-        Option<int> blankLinesOptions = new Option<int>("--blanklines")
+        Option<int> blankLinesOptions = new Option<int>("--blanklines", ["-b"])
         {
             Description =
                 "Number of blank lines to include in the pdf report, use this to add space for manually adding documents",
@@ -49,14 +49,8 @@ public class CmdParser
         
         ParseResult result = rootCommand.Parse(args);
 
-        if (result.Errors.Count != 0)
+        if (result.Invoke() != 0)
         {
-            foreach (ParseError parseError in result.Errors)
-            {
-                Console.Error.WriteLine(parseError.Message);
-            }
-            
-            // Ignore null here, because if we continue on false it is our own fault
             arguments = null!;
             return false;
         }
