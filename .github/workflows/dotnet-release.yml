@@ -16,22 +16,18 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        os: ["win", "linux"]
+        arch: ["x86", "x64", "arm", "arm64"]
         include:
-          - os: "win"
+          - os: "osx"
             arch: "x64"
-            build-name: "PaperMore-win-x64.exe"
-          - os: "win"
-            arch: "x86"
-            build-name: "PaperMore-win-x86.exe"
-          - os: "linux"
-            arch: "x64"
-            build-name: "PaperMore-linux-x64"
-          - os: "linux"
-            arch: "arm"
-            build-name: "PaperMore-linux-arm"
-          - os: "linux"
+          - os: "osx"
             arch: "arm64"
-            build-name: "PaperMore-linux-arm64"
+        exclude:
+          - os: "win"
+            arch: "arm"
+          - os: "linux"
+            arch: "x86"
     steps:
       - uses: actions/checkout@v5
       - name: Setup dotnet
