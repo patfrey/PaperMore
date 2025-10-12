@@ -1,9 +1,8 @@
 name: dotnet publish
 
 on:
-  push:
-    branches: [main]
-    tags: "v*"
+  release: 
+    types: published
 
 env:
   DOTNET_VERSION: "9.x.x"
@@ -45,7 +44,9 @@ jobs:
           DOTNET_NOLOGO: true
         run: dotnet publish  -o ./publish --arch ${{ matrix.arch }} --os ${{ matrix.os }} --configuration Release --self-contained --framework ${{ env.DOTNET_TFM }} -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true -p:DebugSymbols=false ./PaperMore/PaperMore.csproj
       - name: Upload Release Binary
-        uses: softprops/action-gh-release@v2
-        if: github.ref_type == 'tag'
+        uses: AButler/upload-release-assets@v3.0
         with:
-          files: ${{ matrix.build-name }}
+          files: ./publish/*
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          release-id: ${{ github.event.release.id }}
+
