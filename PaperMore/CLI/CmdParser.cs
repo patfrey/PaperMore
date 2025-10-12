@@ -38,6 +38,17 @@ public class CmdParser
             DefaultValueFactory = result => 0,
             Required = true
         };
+        blankLinesOptions.Validators.Add(optionResult =>
+        {
+            if (optionResult.GetRequiredValue(blankLinesOptions) < 0)
+            {
+                optionResult.AddError("Blank lines must not be less than 0");
+            }
+            if (optionResult.GetRequiredValue(formatOption) != FormatType.Pdf)
+            {
+                optionResult.AddError("Blank lines can only be used with PDF format");
+            }
+        });
 
         Option<int> apiBatchSizeOption = new Option<int>("--batch-size", "-B")
         {
