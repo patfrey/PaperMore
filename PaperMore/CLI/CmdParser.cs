@@ -4,7 +4,7 @@ namespace PaperMore.CLI;
 
 public class CmdParser
 {
-    public bool TryParse(string[] args, out CmdArgs arguments)
+    public int TryParse(string[] args, Action<CmdArgs> callback)
     {
         Option<string> urlOption = new Option<string>("--url", "-u")
         {
@@ -44,6 +44,7 @@ public class CmdParser
             {
                 optionResult.AddError("Blank lines must not be less than 0");
             }
+
             if (optionResult.GetRequiredValue(formatOption) != FormatType.Pdf)
             {
                 optionResult.AddError("Blank lines can only be used with PDF format");
@@ -72,22 +73,21 @@ public class CmdParser
         rootCommand.Add(blankLinesOptions);
         rootCommand.Add(apiBatchSizeOption);
 
+        rootCommand.SetAction(result =>
+        {
+            string url = result.GetRequiredValue(urlOption);
+            string token = result.GetRequiredValue(tokenOption);
+            FormatType format = result.GetRequiredValue(formatOption);
+            string pathOutput = result.GetRequiredValue(pathOption);
+            int blankLines = result.GetRequiredValue(blankLinesOptions);
+            int batchSize = result.GetRequiredValue(apiBatchSizeOption);
+
+            CmdArgs arguments = new CmdArgs(url, token, format, pathOutput, blankLines, batchSize);
+            callback(arguments);
+        });
+
         ParseResult result = rootCommand.Parse(args);
 
-        if (result.Invoke() != 0)
-        {
-            arguments = null!;
-            return false;
-        }
-
-        string url = result.GetRequiredValue(urlOption);
-        string token = result.GetRequiredValue(tokenOption);
-        FormatType format = result.GetRequiredValue(formatOption);
-        string pathOutput = result.GetRequiredValue(pathOption);
-        int blankLines = result.GetRequiredValue(blankLinesOptions);
-        int batchSize = result.GetRequiredValue(apiBatchSizeOption);
-
-        arguments = new CmdArgs(url, token, format, pathOutput, blankLines, batchSize);
-        return true;
+        return result.Invoke();
     }
 }
