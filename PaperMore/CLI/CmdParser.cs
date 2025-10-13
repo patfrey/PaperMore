@@ -45,7 +45,7 @@ public class CmdParser
                 optionResult.AddError("Blank lines must not be less than 0");
             }
 
-            if (optionResult.GetRequiredValue(formatOption) != FormatType.Pdf)
+            if (optionResult.GetRequiredValue(formatOption) != FormatType.Pdf && optionResult.GetRequiredValue(blankLinesOptions) > 0)
             {
                 optionResult.AddError("Blank lines can only be used with PDF format");
             }
