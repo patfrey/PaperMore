@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaperMore", "PaperMore\Pape
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paperless.Client.Gen", "Paperless.Client.Gen\Paperless.Client.Gen.csproj", "{52C4490C-2D62-4ECC-9E62-D84A0A348C9A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaperMore.Tests", "PaperMore.Tests\PaperMore.Tests.csproj", "{C921F3EE-3FC7-40AF-9524-48D2BD54843F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{52C4490C-2D62-4ECC-9E62-D84A0A348C9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52C4490C-2D62-4ECC-9E62-D84A0A348C9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52C4490C-2D62-4ECC-9E62-D84A0A348C9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C921F3EE-3FC7-40AF-9524-48D2BD54843F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C921F3EE-3FC7-40AF-9524-48D2BD54843F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C921F3EE-3FC7-40AF-9524-48D2BD54843F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C921F3EE-3FC7-40AF-9524-48D2BD54843F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
