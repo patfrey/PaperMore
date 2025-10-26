@@ -17,6 +17,9 @@ PaperMore.exe --url <API_URL> --token <API_TOKEN> --format <csv|pdf> --path <OUT
 - `--format`: (optional) Output format (`csv` or `pdf`, default `pdf`)
 - `--path`: Path to save the generated report
 - `--blanklines`: Add blank lines to the PDF report, useful reserve space for newly added documents
+- `--batch-size`: Number of documents queried in one go (default: 50)
+- `--asn-from`: Sets the lower bound for filtering documents by ASN
+- `--asn-to`: Sets the upper bound for filtering documents by ASN
 
 > Note: BasicAuth login to the paperless api is not supported
 
