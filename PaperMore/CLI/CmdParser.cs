@@ -65,7 +65,8 @@ public class CmdParser
                 optionResult.AddError("Batch size must be at least 1");
             }
         });
-        Option<int> asnFromOption = new Option<int>("--asn-from", "-af")
+        
+        Option<int?> asnFromOption = new Option<int?>("--asn-from", "-af")
         {
             Description = "Lower bound for ASN Selection",
         };
@@ -78,7 +79,7 @@ public class CmdParser
                     optionResult.AddError("ASN cannot be less than 1");
             }
         });
-        Option<int> asnToOption = new Option<int>("--asn-to", "-at")
+        Option<int?> asnToOption = new Option<int?>("--asn-to", "-at")
         {
             Description = "Upper bound for ASN Selection",
         };
@@ -89,6 +90,10 @@ public class CmdParser
             {
                 if (asnTo < 1)
                     optionResult.AddError("ASN cannot be less than 1");
+                
+                int? asnFrom = optionResult.GetValue(asnFromOption);
+                if(asnFrom is not null && asnTo < asnFrom.Value)
+                    optionResult.AddError("ASN upper bound cannot be greater than ASN lower bound");
             }
         });
 
