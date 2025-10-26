@@ -19,6 +19,7 @@ class Program
         List<DocumentReportData> results =
             source.GetDocumentData(new DocumentQueryParams(cmdArgs.Url, cmdArgs.Token, cmdArgs.BatchSize));
 
+        results = FilterDocuments(results, cmdArgs);
         SortDocuments(results);
 
         IReportGenerator generator;
@@ -37,6 +38,32 @@ class Program
         using FileStream stream = File.Open(cmdArgs.OutputPath, FileMode.Create, FileAccess.Write);
 
         generator.Generate(results, stream);
+    }
+
+    private static List<DocumentReportData> FilterDocuments(List<DocumentReportData> results, CmdArgs args)
+    {
+        bool isAsnLimited = args.AsnRangeFrom is not null || args.AsnRangeTo is not null;
+
+        if (!isAsnLimited)
+            return results;
+
+        var newList = results
+            .Where(doc => doc.ASN is not null)
+            .ToList();
+
+        newList = newList
+            .Where(doc => LongBetween(doc.ASN ?? 0, args.AsnRangeFrom, args.AsnRangeTo))
+            .ToList();
+
+        return newList;
+    }
+    
+    private static bool LongBetween(long num, long? lower, long? upper)
+    {
+        long low = lower ?? 0L;
+        long up = upper ?? long.MaxValue;
+        
+        return low <= num && num <= up;
     }
 
     private static void SortDocuments(List<DocumentReportData> results)
