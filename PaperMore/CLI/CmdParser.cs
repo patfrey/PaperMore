@@ -45,7 +45,8 @@ public class CmdParser
                 optionResult.AddError("Blank lines must not be less than 0");
             }
 
-            if (optionResult.GetRequiredValue(formatOption) != FormatType.Pdf && optionResult.GetRequiredValue(blankLinesOptions) > 0)
+            if (optionResult.GetRequiredValue(formatOption) != FormatType.Pdf &&
+                optionResult.GetRequiredValue(blankLinesOptions) > 0)
             {
                 optionResult.AddError("Blank lines can only be used with PDF format");
             }
@@ -64,6 +65,32 @@ public class CmdParser
                 optionResult.AddError("Batch size must be at least 1");
             }
         });
+        Option<int> asnFromOption = new Option<int>("--asn-from", "-af")
+        {
+            Description = "Lower bound for ASN Selection",
+        };
+        asnFromOption.Validators.Add(optionResult =>
+        {
+            int? asnFrom = optionResult.GetValue(asnFromOption);
+            if (asnFrom is not null)
+            {
+                if (asnFrom < 1)
+                    optionResult.AddError("ASN cannot be less than 1");
+            }
+        });
+        Option<int> asnToOption = new Option<int>("--asn-to", "-at")
+        {
+            Description = "Upper bound for ASN Selection",
+        };
+        asnToOption.Validators.Add(optionResult =>
+        {
+            int? asnTo = optionResult.GetValue(asnToOption);
+            if (asnTo is not null)
+            {
+                if (asnTo < 1)
+                    optionResult.AddError("ASN cannot be less than 1");
+            }
+        });
 
         RootCommand rootCommand = new RootCommand("Create a report of all documents in you paperless-ngx instance");
         rootCommand.Add(urlOption);
@@ -72,6 +99,8 @@ public class CmdParser
         rootCommand.Add(pathOption);
         rootCommand.Add(blankLinesOptions);
         rootCommand.Add(apiBatchSizeOption);
+        rootCommand.Add(asnFromOption);
+        rootCommand.Add(asnToOption);
 
         rootCommand.SetAction(result =>
         {
@@ -81,8 +110,11 @@ public class CmdParser
             string pathOutput = result.GetRequiredValue(pathOption);
             int blankLines = result.GetRequiredValue(blankLinesOptions);
             int batchSize = result.GetRequiredValue(apiBatchSizeOption);
+            int? asnFrom = result.GetValue(asnFromOption);
+            int? asnTo = result.GetValue(asnToOption);
 
-            CmdArgs arguments = new CmdArgs(url, token, format, pathOutput, blankLines, batchSize);
+
+            CmdArgs arguments = new CmdArgs(url, token, format, pathOutput, blankLines, batchSize, asnFrom, asnTo);
             callback(arguments);
         });
 
