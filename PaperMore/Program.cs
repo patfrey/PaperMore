@@ -15,7 +15,7 @@ class Program
         if (returnCode != 0 || cmdArgs is null)
             Environment.Exit(returnCode);
 
-        IDocumentDataSource source = new DocumentDataSource();
+        IDocumentSource source = new ApiDocumentSource();
         List<DocumentReportData> results =
             source.GetDocumentData(new DocumentQueryParams(cmdArgs.Url, cmdArgs.Token, cmdArgs.BatchSize));
 
