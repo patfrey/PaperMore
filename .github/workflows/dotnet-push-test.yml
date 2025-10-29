@@ -23,10 +23,10 @@ jobs:
       - name: Restore
         run: dotnet restore
       - name: Test with the dotnet CLI (PaperMore.Tests)
-        run: dotnet test ./PaperMore.Tests/PaperMore.Tests.csproj --no-restore --logger "trx;LogFileName=papermore-results.trx"
+        run: dotnet test ./PaperMore.Tests/PaperMore.Tests.csproj --no-restore --logger trx --results-directory "Paperless.Tests.Results"
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: papermore-results.trx
+          path: Paperless.Tests.Results
         if: ${{ always() }}
