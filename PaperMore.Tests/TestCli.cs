@@ -7,11 +7,22 @@ public class TestCli
     public record CliTestSet(string[] Args, CmdArgs? Result, int ReturnCode, string TestCase);
 
     private CmdParser _parser;
+    private TextWriter _consoleOut;
 
     [SetUp]
     public void Setup()
     {
         _parser = new CmdParser();
+        // Save Stdout
+        _consoleOut = Console.Out;
+        // Ignore all the help output
+        Console.SetOut(TextWriter.Null);
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        Console.SetOut(_consoleOut);
     }
 
     [Test]
