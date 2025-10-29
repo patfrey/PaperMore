@@ -1,0 +1,32 @@
+name: run unit tests
+
+on:
+  push:
+
+env:
+  DOTNET_VERSION: "9.x.x"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        env:
+          DOTNET_CLI_TELEMETRY_OPTOUT: 1
+          DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+          DOTNET_NOLOGO: true
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Restore
+        run: dotnet restore
+      - name: Test with the dotnet CLI (PaperMore.Tests)
+        run: dotnet test ./PaperMore.Tests/PaperMore.Tests.csproj --no-restore --logger "trx;LogFileName=papermore-results.trx"
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: papermore-results.trx
+        if: ${{ always() }}
