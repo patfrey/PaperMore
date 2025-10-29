@@ -2,12 +2,12 @@ using System.Text;
 
 namespace PaperMore.Reports;
 
-public class CsvGenerator : IReportGenerator
+public class CsvGenerator : GeneratorBase
 {
-    public void Generate(List<DocumentReportData> data, Stream outputStream)
+    protected override void Generate(List<DocumentReportData> data, Stream outputStream)
     {
         const string TextDelimiter = "\"";
-        
+
         StringBuilder builder = new StringBuilder();
         builder.AppendLine("Correspondent,Title,DocumentDate,Added,ASN");
 
@@ -15,7 +15,7 @@ public class CsvGenerator : IReportGenerator
         foreach (DocumentReportData document in data)
         {
             string asn = document.ASN.ToString() ?? string.Empty;
-            
+
             builder.Append(TextDelimiter)
                 .Append(document.Correspondent)
                 .Append(TextDelimiter)
@@ -34,7 +34,7 @@ public class CsvGenerator : IReportGenerator
                 .Append(",")
                 .AppendLine(asn);
         }
-        
+
         using StreamWriter streamWriter = new StreamWriter(outputStream);
         streamWriter.WriteLine(builder.ToString());
     }

@@ -4,21 +4,21 @@ using PaperMore.Reports;
 
 namespace PaperMore.Api;
 
-internal class DocumentDataSource : IDocumentDataSource
+internal class ApiDocumentSource : IDocumentSource
 {
     private int _pageSize;
-    
+
     public List<DocumentReportData> GetDocumentData(DocumentQueryParams queryParams)
     {
         using HttpClient client = new HttpClient();
         _pageSize = queryParams.PageSize;
-        
+
         PaperlessApiClient paperless = new PaperlessApiClient(queryParams.ApiEndpoint, queryParams.Token, client);
         Task<List<DocumentReportData>> dataTask = QueryDocumentsAsync(paperless);
         dataTask.Wait();
 
         List<DocumentReportData> data = dataTask.Result.ToList();
-        
+
         return data;
     }
 
@@ -34,20 +34,20 @@ internal class DocumentDataSource : IDocumentDataSource
             page = await paperless.ApiDocumentsGetAsync(page: currentPage, page_size: _pageSize);
             foreach (Document document in page.Results)
             {
-                documents.Add(document);    
+                documents.Add(document);
             }
 
             currentPage++;
         } while (page?.Next is not null);
-        
-        
+
+
         List<Correspondent> correspondents = await GetCorrespondents(paperless, documents);
 
-        foreach(Document doc in documents)
+        foreach (Document doc in documents)
         {
             // If a name is null we have messed up somewhere else
             Guard.IsNotNullOrEmpty(doc.Title, nameof(doc.Title));
-            
+
             string correspondent = string.Empty;
             if (doc.Correspondent is not null)
             {
@@ -57,22 +57,23 @@ internal class DocumentDataSource : IDocumentDataSource
                     .FirstOrDefault();
                 // We specifically selected a correspondent based on this documents id, this better not be null
                 Guard.IsNotNull(name, nameof(name));
-                
+
                 correspondent = name;
             }
-            
-            DocumentReportData data = new DocumentReportData(doc.Title!, doc.Archive_serial_number, correspondent, doc.Created ?? DateTimeOffset.Now, doc.Added);
-            
+
+            DocumentReportData data = new DocumentReportData(doc.Title!, doc.Archive_serial_number, correspondent,
+                doc.Created ?? DateTimeOffset.Now, doc.Added);
+
             results.Add(data);
         }
-        
+
         return results;
     }
 
     private async Task<List<Correspondent>> GetCorrespondents(PaperlessApiClient paperless, List<Document> documents)
     {
         List<Correspondent> results = new List<Correspondent>();
-        
+
         List<int> correspondentsIds = documents.Select(doc => doc.Correspondent)
             .Where(id => id is not null)
             .Select(id => id!.Value)
@@ -83,7 +84,8 @@ internal class DocumentDataSource : IDocumentDataSource
         int currentPage = 1;
         do
         {
-            correspondents = await paperless.ApiCorrespondentsGetAsync(id__in: correspondentsIds, page: currentPage, page_size: _pageSize);
+            correspondents = await paperless.ApiCorrespondentsGetAsync(id__in: correspondentsIds, page: currentPage,
+                page_size: _pageSize);
             foreach (Correspondent correspondent in correspondents.Results)
             {
                 results.Add(correspondent);
@@ -91,7 +93,7 @@ internal class DocumentDataSource : IDocumentDataSource
 
             currentPage++;
         } while (correspondents?.Next is not null);
-        
+
         return results;
     }
 }

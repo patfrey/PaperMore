@@ -1,0 +1,37 @@
+name: run unit tests
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+    branches:
+      - main
+
+env:
+  DOTNET_VERSION: "9.x.x"
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_NOLOGO: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Restore
+        run: dotnet restore
+      - name: Test with the dotnet CLI (PaperMore.Tests)
+        run: dotnet test ./PaperMore.Tests/PaperMore.Tests.csproj --no-restore --logger trx --results-directory "Paperless.Tests.Results"
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: Paperless.Tests.Results
+        if: ${{ always() }}

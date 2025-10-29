@@ -2,7 +2,7 @@ using PaperMore.Reports;
 
 namespace PaperMore.Api;
 
-public interface IDocumentDataSource
+public interface IDocumentSource
 {
     List<DocumentReportData> GetDocumentData(DocumentQueryParams queryParams);
 }

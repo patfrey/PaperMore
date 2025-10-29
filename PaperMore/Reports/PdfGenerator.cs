@@ -1,23 +1,24 @@
+using QuestPDF;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 
 namespace PaperMore.Reports;
 
-public class PdfGenerator : IReportGenerator
+public class PdfGenerator : GeneratorBase
 {
-
     public int BlankLines { get; set; }
-    
+
     public PdfGenerator()
     {
-        QuestPDF.Settings.License = LicenseType.Community;
+        Settings.License = LicenseType.Community;
         BlankLines = 0;
     }
 
-    public void Generate(List<DocumentReportData> data, Stream outputStream)
+    protected override void Generate(List<DocumentReportData> data, Stream outputStream)
     {
         long currentASM = data.Max(d => d.ASN ?? 0);
+
         var document = Document.Create(doc =>
         {
             doc.Page(page =>
@@ -102,7 +103,7 @@ public class PdfGenerator : IReportGenerator
 
                         int rowNumber = 1;
                         const int cellPadding = 4;
-                        
+
                         foreach (DocumentReportData item in data)
                         {
                             Color cellBackground;
@@ -129,7 +130,7 @@ public class PdfGenerator : IReportGenerator
                                 .Padding(cellPadding)
                                 .AlignRight()
                                 .Text(item.ASN is not null ? $"#{item.ASN.ToString()}" : string.Empty);
-                            
+
                             rowNumber++;
                         }
 
@@ -141,7 +142,7 @@ public class PdfGenerator : IReportGenerator
                                 cellBackground = Colors.White;
                             else
                                 cellBackground = Colors.Grey.Lighten1;
-                            
+
                             table.Cell().Background(cellBackground)
                                 .Padding(cellPadding)
                                 .Text(string.Empty);
@@ -160,7 +161,7 @@ public class PdfGenerator : IReportGenerator
                                 .Padding(cellPadding)
                                 .AlignRight()
                                 .Text(string.Empty);
-                            
+
                             rowNumber++;
                         }
                     });
