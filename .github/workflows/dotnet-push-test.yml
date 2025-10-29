@@ -1,7 +1,9 @@
 name: run unit tests
 
 on:
-  push:
+  pull_request:
+    branches:
+      - main
 
 env:
   DOTNET_VERSION: "9.x.x"
