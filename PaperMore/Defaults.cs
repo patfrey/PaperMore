@@ -7,15 +7,21 @@ public static class Defaults
 {
     public static Func<DocumentReportData, bool> DefaultFilter(CmdArgs args)
     {
-        return DefaultFilter(args.AsnRangeFrom, args.AsnRangeTo);
+        return DefaultFilter(args.AsnRangeFrom, args.AsnRangeTo, args.IgnoreBlankAsn);
     }
 
-    public static Func<DocumentReportData, bool> DefaultFilter(long? asnRangeFrom, long? asnRangeTo)
+    public static Func<DocumentReportData, bool> DefaultFilter(long? asnRangeFrom, long? asnRangeTo,
+        bool ignoreBlankAsn)
     {
         bool isAsnLimited = asnRangeFrom is not null || asnRangeTo is not null;
 
         if (!isAsnLimited)
+        {
+            if (ignoreBlankAsn)
+                return doc => doc.ASN is not null;
+
             return doc => true;
+        }
 
         return doc => doc.ASN is not null && LongBetween(doc.ASN ?? 0, asnRangeFrom, asnRangeTo);
     }
