@@ -8,8 +8,8 @@ permissions:
   contents: write
 
 env:
-  DOTNET_VERSION: "9.x.x"
-  DOTNET_TFM: "net9.0"
+  DOTNET_VERSION: "10.x.x"
+  DOTNET_TFM: "net10.0"
 
 jobs:
   build:
