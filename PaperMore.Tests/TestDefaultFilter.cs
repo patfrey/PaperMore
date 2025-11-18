@@ -8,6 +8,7 @@ public class TestDefaultFilter
         List<DocumentReportData> InputDocs,
         long? AsnUpperBound,
         long? AsnLowerBound,
+        bool IgnoreBlankAsn,
         List<DocumentReportData> ExpectedDocs,
         string TestCase);
 
@@ -16,7 +17,8 @@ public class TestDefaultFilter
     [TestCaseSource(nameof(DefaultFilterTestData))]
     public void TestFilter(FilterTestSet testSet)
     {
-        Func<DocumentReportData, bool> filter = Defaults.DefaultFilter(testSet.AsnLowerBound, testSet.AsnUpperBound);
+        Func<DocumentReportData, bool> filter =
+            Defaults.DefaultFilter(testSet.AsnLowerBound, testSet.AsnUpperBound, testSet.IgnoreBlankAsn);
         List<DocumentReportData> actualList = testSet.InputDocs.Where(filter).ToList();
 
         Assert.That(actualList, Is.EquivalentTo(testSet.ExpectedDocs), testSet.TestCase);
@@ -39,6 +41,7 @@ public class TestDefaultFilter
             ],
             null,
             null,
+            false,
             [
                 new("Reflections on Trusting Trust", 1, "Ken Thompson", DateTimeOffset.Parse("1984-08-01"),
                     DateTimeOffset.Parse("2025-01-01")),
@@ -69,6 +72,7 @@ public class TestDefaultFilter
             ],
             3,
             1,
+            false,
             [
                 new("Reflections on Trusting Trust", 1, "Ken Thompson", DateTimeOffset.Parse("1984-08-01"),
                     DateTimeOffset.Parse("2025-01-01")),
@@ -97,6 +101,7 @@ public class TestDefaultFilter
             ],
             2,
             null,
+            false,
             [
                 new("Reflections on Trusting Trust", 1, "Ken Thompson", DateTimeOffset.Parse("1984-08-01"),
                     DateTimeOffset.Parse("2025-01-01")),
@@ -121,6 +126,7 @@ public class TestDefaultFilter
             ],
             null,
             2,
+            false,
             [
                 new("How to share a secret", 2, "Adi Shamir", DateTimeOffset.Parse("1979-11-01"),
                     DateTimeOffset.Parse("2025-01-01")),
@@ -130,6 +136,35 @@ public class TestDefaultFilter
                     DateTimeOffset.Parse("2017-10-18"), DateTimeOffset.Parse("2025-01-01"))
             ],
             "asn lower limit 2"
+        );
+
+        yield return new FilterTestSet(
+            [
+                new("Reflections on Trusting Trust", 1, "Ken Thompson", DateTimeOffset.Parse("1984-08-01"),
+                    DateTimeOffset.Parse("2025-01-01")),
+                new("Hyper Text Coffee Pot Control Protocol", null, "L. Masinter", DateTimeOffset.Parse("1998-04-01"),
+                    DateTimeOffset.Parse("2025-01-01")),
+                new("How to share a secret", 2, "Adi Shamir", DateTimeOffset.Parse("1979-11-01"),
+                    DateTimeOffset.Parse("2025-01-01")),
+                new(
+                    "Dutch courage? Effects of acute alcohol consumption on self-ratings and observer ratings of foreign language skills",
+                    3, "Fritz Renner, Inge Kersbergen, Matt Dield, Jessica Werthmann",
+                    DateTimeOffset.Parse("2017-10-18"), DateTimeOffset.Parse("2025-01-01"))
+            ],
+            null,
+            null,
+            true,
+            [
+                new("Reflections on Trusting Trust", 1, "Ken Thompson", DateTimeOffset.Parse("1984-08-01"),
+                    DateTimeOffset.Parse("2025-01-01")),
+                new("How to share a secret", 2, "Adi Shamir", DateTimeOffset.Parse("1979-11-01"),
+                    DateTimeOffset.Parse("2025-01-01")),
+                new(
+                    "Dutch courage? Effects of acute alcohol consumption on self-ratings and observer ratings of foreign language skills",
+                    3, "Fritz Renner, Inge Kersbergen, Matt Dield, Jessica Werthmann",
+                    DateTimeOffset.Parse("2017-10-18"), DateTimeOffset.Parse("2025-01-01"))
+            ],
+            "ignore blank asn = true"
         );
     }
 }

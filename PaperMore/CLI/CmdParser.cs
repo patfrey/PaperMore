@@ -65,7 +65,7 @@ public class CmdParser
                 optionResult.AddError("Batch size must be at least 1");
             }
         });
-        
+
         Option<int?> asnFromOption = new Option<int?>("--asn-from", "-af")
         {
             Description = "Lower bound for ASN Selection",
@@ -90,12 +90,19 @@ public class CmdParser
             {
                 if (asnTo < 1)
                     optionResult.AddError("ASN cannot be less than 1");
-                
+
                 int? asnFrom = optionResult.GetValue(asnFromOption);
-                if(asnFrom is not null && asnTo < asnFrom.Value)
+                if (asnFrom is not null && asnTo < asnFrom.Value)
                     optionResult.AddError("ASN upper bound cannot be greater than ASN lower bound");
             }
         });
+
+        Option<bool> ignoreBlankAsn = new Option<bool>("--ignore-blank-asn", "-i")
+        {
+            Description =
+                "Ignore blank ASNs when querying all documents. This option has no effect when supplying an ASN range, as blank ASNs are always ignored.",
+            DefaultValueFactory = result => false,
+        };
 
         RootCommand rootCommand = new RootCommand("Create a report of all documents in you paperless-ngx instance");
         rootCommand.Add(urlOption);
@@ -106,6 +113,7 @@ public class CmdParser
         rootCommand.Add(apiBatchSizeOption);
         rootCommand.Add(asnFromOption);
         rootCommand.Add(asnToOption);
+        rootCommand.Add(ignoreBlankAsn);
 
         rootCommand.SetAction(result =>
         {
@@ -117,9 +125,11 @@ public class CmdParser
             int batchSize = result.GetRequiredValue(apiBatchSizeOption);
             int? asnFrom = result.GetValue(asnFromOption);
             int? asnTo = result.GetValue(asnToOption);
+            bool ignoreBlank = result.GetValue(ignoreBlankAsn);
 
 
-            CmdArgs arguments = new CmdArgs(url, token, format, pathOutput, blankLines, batchSize, asnFrom, asnTo);
+            CmdArgs arguments = new CmdArgs(url, token, format, pathOutput, blankLines, batchSize, asnFrom, asnTo,
+                ignoreBlank);
             callback(arguments);
         });
 

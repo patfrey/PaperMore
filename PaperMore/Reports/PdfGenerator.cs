@@ -17,7 +17,7 @@ public class PdfGenerator : GeneratorBase
 
     protected override void Generate(List<DocumentReportData> data, Stream outputStream)
     {
-        long currentASM = data.Max(d => d.ASN ?? 0);
+        long currentAsn = data.Max(d => d.ASN ?? 0);
 
         var document = Document.Create(doc =>
         {
@@ -54,7 +54,7 @@ public class PdfGenerator : GeneratorBase
                             .Italic()
                             .FontSize(6);
                         row.RelativeItem()
-                            .Text($"Current ASN #{currentASM}")
+                            .Text($"Current ASN #{currentAsn}")
                             .AlignCenter()
                             .Italic()
                             .FontSize(6);
