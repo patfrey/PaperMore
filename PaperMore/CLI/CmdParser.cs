@@ -102,7 +102,6 @@ public class CmdParser
             Description =
                 "Ignore blank ASNs when querying all documents. This option has no effect when supplying an ASN range, as blank ASNs are always ignored.",
             DefaultValueFactory = result => false,
-            Required = true
         };
 
         RootCommand rootCommand = new RootCommand("Create a report of all documents in you paperless-ngx instance");
@@ -126,7 +125,7 @@ public class CmdParser
             int batchSize = result.GetRequiredValue(apiBatchSizeOption);
             int? asnFrom = result.GetValue(asnFromOption);
             int? asnTo = result.GetValue(asnToOption);
-            bool ignoreBlank = result.GetRequiredValue(ignoreBlankAsn);
+            bool ignoreBlank = result.GetValue(ignoreBlankAsn);
 
 
             CmdArgs arguments = new CmdArgs(url, token, format, pathOutput, blankLines, batchSize, asnFrom, asnTo,
