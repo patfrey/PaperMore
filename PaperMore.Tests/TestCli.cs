@@ -57,21 +57,30 @@ public class TestCli
         yield return new CliTestSet(
             [
                 "--url", "http://localhost:8080", "--token", "123456789", "--format", "pdf", "--path",
-                "/home/test/index.pdf", "--blanklines", "25", "--batch-size", "100"
+                "/home/test/index.pdf", "--blanklines", "25", "--batch-size", "100", "--ignore-blank-asn"
             ],
             new CmdArgs("http://localhost:8080", "123456789", FormatType.Pdf, "/home/test/index.pdf", 25, 100, null,
-                null),
+                null, true),
             0,
             "Long Params");
+        yield return new CliTestSet(
+            [
+                "-u", "http://localhost:8080", "-t", "123456789", "-f", "pdf", "-p", "/home/test/index.pdf", "-b", "25",
+                "-B", "100", "-i"
+            ],
+            new CmdArgs("http://localhost:8080", "123456789", FormatType.Pdf, "/home/test/index.pdf", 25, 100, null,
+                null, true),
+            0,
+            "Short Params");
         yield return new CliTestSet(
             [
                 "-u", "http://localhost:8080", "-t", "123456789", "-f", "pdf", "-p", "/home/test/index.pdf", "-b", "25",
                 "-B", "100"
             ],
             new CmdArgs("http://localhost:8080", "123456789", FormatType.Pdf, "/home/test/index.pdf", 25, 100, null,
-                null),
+                null, false),
             0,
-            "Short Params");
+            "Default ignore blank lines");
     }
 
     private static IEnumerable<CliTestSet> GetFailArgsTests()
