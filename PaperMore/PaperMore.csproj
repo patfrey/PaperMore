@@ -15,7 +15,7 @@
     <ItemGroup>
       <PackageReference Include="CommunityToolkit.Diagnostics" Version="8.4.0" />
       <PackageReference Include="QuestPDF" Version="2025.7.4" />
-      <PackageReference Include="System.CommandLine" Version="2.0.0-rc.2.25502.107" />
+      <PackageReference Include="System.CommandLine" Version="2.0.0" />
     </ItemGroup>
 
 </Project>
