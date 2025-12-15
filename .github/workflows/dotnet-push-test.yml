@@ -30,7 +30,7 @@ jobs:
       - name: Test with the dotnet CLI (PaperMore.Tests)
         run: dotnet test ./PaperMore.Tests/PaperMore.Tests.csproj --no-restore --logger trx --results-directory "Paperless.Tests.Results"
       - name: Upload test results
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: test-results
           path: Paperless.Tests.Results
