@@ -8,11 +8,17 @@ namespace PaperMore.Reports;
 public class PdfGenerator : GeneratorBase
 {
     public int BlankLines { get; set; }
+    private readonly TimeProvider _timeProvider;
 
-    public PdfGenerator()
+    public PdfGenerator() : this(TimeProvider.System)
+    {
+    }
+
+    public PdfGenerator(TimeProvider timeProvider)
     {
         Settings.License = LicenseType.Community;
         BlankLines = 0;
+        _timeProvider = timeProvider;
     }
 
     protected override void Generate(List<DocumentReportData> data, Stream outputStream)
@@ -59,7 +65,7 @@ public class PdfGenerator : GeneratorBase
                             .Italic()
                             .FontSize(6);
                         row.RelativeItem()
-                            .Text($"{DateTime.Now.ToShortDateString()}, {DateTime.Now.ToLongTimeString()}")
+                            .Text(_timeProvider.GetLocalNow().ToString("dd.MM.yyyy, HH:mm:ss"))
                             .AlignEnd()
                             .Italic()
                             .FontSize(6);
@@ -166,7 +172,14 @@ public class PdfGenerator : GeneratorBase
                         }
                     });
             });
+        }).WithMetadata(new DocumentMetadata()
+        {
+            CreationDate = _timeProvider.GetLocalNow(),
+            ModifiedDate = _timeProvider.GetLocalNow(),
+            Producer = "PaperMore",
+            Title = "Paperless Index"
         });
+
 
         document.GeneratePdf(outputStream);
     }
