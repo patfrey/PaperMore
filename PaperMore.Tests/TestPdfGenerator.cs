@@ -9,11 +9,6 @@ public class TestPdfGenerator
     [Test]
     public void TestGeneration()
     {
-        // QuestPDF will may change their internal structure
-        // Update this when updating to a new version
-        // For the future: find a better was to compare documents
-        const string expectedDataHash = "9fa78c676bc403a5d15d0a403fdb6db9df2b681529906bd3d15399bffdd79a8d";
-
         FakeTimeProvider timeProvider = new();
 
 
@@ -31,15 +26,22 @@ public class TestPdfGenerator
                 DateTimeOffset.Parse("2017-10-18"), DateTimeOffset.Parse("2025-01-01"))
         ];
 
-        // using MemoryStream stream = new();
-        using Stream stream = File.OpenWrite("E:\\test.pdf");
-        PdfGenerator generator = new(timeProvider);
-        generator.Generate(testData, Defaults.DefaultSorting, Defaults.DefaultFilter(null, null, false), stream);
+        string tempFileName = Path.GetTempFileName();
+        try
+        {
+            using Stream stream = File.OpenWrite(tempFileName);
+            PdfGenerator generator = new(timeProvider);
 
+            generator.Generate(testData, Defaults.DefaultSorting, Defaults.DefaultFilter(null, null, false), stream);
 
-        // byte[] actualDataHashBytes = SHA256.HashData(stream.ToArray());
-        // string actualDataHash = Convert.ToHexStringLower(actualDataHashBytes);
-        //
-        // Assert.That(actualDataHash, Is.EqualTo(expectedDataHash));
+            FileInfo testFileInfo = new(tempFileName);
+            Assert.IsTrue(testFileInfo.Exists);
+            Assert.That(testFileInfo.Length, Is.GreaterThan(0));
+        }
+        finally
+        {
+            if (File.Exists(tempFileName))
+                File.Delete(tempFileName);
+        }
     }
 }
