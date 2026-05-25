@@ -46,7 +46,7 @@ jobs:
           DOTNET_NOLOGO: true
         run: dotnet publish  -o ./publish --arch ${{ matrix.arch }} --os ${{ matrix.os }} --configuration Release --self-contained --framework ${{ env.DOTNET_TFM }} -p:VersionPrefix=${{ steps.get_version.outputs.version }} -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true -p:DebugSymbols=false ./PaperMore/PaperMore.csproj
       - name: Upload Release Binary
-        uses: AButler/upload-release-assets@v3.0
+        uses: AButler/upload-release-assets@v4.0
         with:
           files: ./publish/*
           repo-token: ${{ secrets.GITHUB_TOKEN }}
