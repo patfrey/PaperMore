@@ -7,6 +7,7 @@ namespace PaperMore.Tests;
 public class TestCsvGenerator
 {
     [Test]
+    [SetCulture("de-DE")]
     public void TestGeneration()
     {
         const string expectedDataHash = "895946a332232da40cf213f0b2b785dfcc140fab53f295534da0748f5d7a0365";
