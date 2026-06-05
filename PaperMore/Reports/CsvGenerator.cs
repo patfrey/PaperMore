@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 
 namespace PaperMore.Reports;
@@ -25,11 +26,11 @@ public class CsvGenerator : GeneratorBase
                 .Append(TextDelimiter)
                 .Append(",")
                 .Append(TextDelimiter)
-                .Append(document.DocumentDate.Date.ToShortDateString())
+                .Append(document.DocumentDate.Date.ToString("d", CultureInfo.CurrentCulture))
                 .Append(TextDelimiter)
                 .Append(",")
                 .Append(TextDelimiter)
-                .Append(document.AddedDate.Date.ToShortDateString())
+                .Append(document.AddedDate.Date.ToString("d", CultureInfo.CurrentCulture))
                 .Append(TextDelimiter)
                 .Append(",")
                 .AppendLine(asn);
