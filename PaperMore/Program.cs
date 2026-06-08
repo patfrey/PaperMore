@@ -34,6 +34,7 @@ class Program
 
         using FileStream stream = File.Open(cmdArgs.OutputPath, FileMode.Create, FileAccess.Write);
 
-        generator.Generate(results, Defaults.DefaultSorting, Defaults.DefaultFilter(cmdArgs), stream);
+        generator.Generate(results, Defaults.DefaultSorting, Defaults.DefaultFilter(cmdArgs),
+            new ExportFormatOptions(cmdArgs.DateFormat), stream);
     }
 }

@@ -32,7 +32,8 @@ public class TestPdfGenerator
             using Stream stream = File.OpenWrite(tempFileName);
             PdfGenerator generator = new(timeProvider);
 
-            generator.Generate(testData, Defaults.DefaultSorting, Defaults.DefaultFilter(null, null, false), stream);
+            generator.Generate(testData, Defaults.DefaultSorting, Defaults.DefaultFilter(null, null, false),
+                ExportFormatOptions.Default, stream);
 
             FileInfo testFileInfo = new(tempFileName);
             Assert.IsTrue(testFileInfo.Exists);

@@ -1,4 +1,5 @@
 using System.CommandLine;
+using System.Globalization;
 
 namespace PaperMore.CLI;
 
@@ -21,7 +22,7 @@ public class CmdParser
         Option<FormatType> formatOption = new Option<FormatType>("--format", "-f")
         {
             Description = "Output type of the report",
-            DefaultValueFactory = result => FormatType.Pdf,
+            DefaultValueFactory = _ => FormatType.Pdf,
             Required = true
         };
 
@@ -35,7 +36,7 @@ public class CmdParser
         {
             Description =
                 "Number of blank lines to include in the pdf report, use this to add space for manually adding documents",
-            DefaultValueFactory = result => 0,
+            DefaultValueFactory = _ => 0,
             Required = true
         };
         blankLinesOptions.Validators.Add(optionResult =>
@@ -55,7 +56,7 @@ public class CmdParser
         Option<int> apiBatchSizeOption = new Option<int>("--batch-size", "-B")
         {
             Description = "Batch size for querying the paperless-ngx api",
-            DefaultValueFactory = result => 50,
+            DefaultValueFactory = _ => 50,
             Required = true
         };
         apiBatchSizeOption.Validators.Add(optionResult =>
@@ -101,7 +102,14 @@ public class CmdParser
         {
             Description =
                 "Ignore blank ASNs when querying all documents. This option has no effect when supplying an ASN range, as blank ASNs are always ignored.",
-            DefaultValueFactory = result => false,
+            DefaultValueFactory = _ => false,
+        };
+
+        Option<string> dateFormatOption = new Option<string>("--date-format", "-df")
+        {
+            Description = "Sets the default date format for exporting",
+            DefaultValueFactory = _ => CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern,
+            Required = true
         };
 
         RootCommand rootCommand = new RootCommand("Create a report of all documents in you paperless-ngx instance");
@@ -114,6 +122,7 @@ public class CmdParser
         rootCommand.Add(asnFromOption);
         rootCommand.Add(asnToOption);
         rootCommand.Add(ignoreBlankAsn);
+        rootCommand.Add(dateFormatOption);
 
         rootCommand.SetAction(result =>
         {
@@ -126,10 +135,11 @@ public class CmdParser
             int? asnFrom = result.GetValue(asnFromOption);
             int? asnTo = result.GetValue(asnToOption);
             bool ignoreBlank = result.GetValue(ignoreBlankAsn);
+            string dateFormat = result.GetRequiredValue(dateFormatOption);
 
 
             CmdArgs arguments = new CmdArgs(url, token, format, pathOutput, blankLines, batchSize, asnFrom, asnTo,
-                ignoreBlank);
+                ignoreBlank, dateFormat);
             callback(arguments);
         });
 

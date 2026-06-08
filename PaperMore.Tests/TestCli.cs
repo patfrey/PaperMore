@@ -1,3 +1,4 @@
+using System.Globalization;
 using PaperMore.CLI;
 
 namespace PaperMore.Tests;
@@ -39,6 +40,7 @@ public class TestCli
         Assert.That(cmdArgs.Format, Is.EqualTo(testData.Result.Format));
         Assert.That(cmdArgs.BatchSize, Is.EqualTo(testData.Result.BatchSize));
         Assert.That(cmdArgs.BlankLines, Is.EqualTo(testData.Result.BlankLines));
+        Assert.That(cmdArgs.DateFormat, Is.EqualTo(testData.Result.DateFormat));
     }
 
     [Test]
@@ -60,7 +62,7 @@ public class TestCli
                 "/home/test/index.pdf", "--blanklines", "25", "--batch-size", "100", "--ignore-blank-asn"
             ],
             new CmdArgs("http://localhost:8080", "123456789", FormatType.Pdf, "/home/test/index.pdf", 25, 100, null,
-                null, true),
+                null, true, CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern),
             0,
             "Long Params");
         yield return new CliTestSet(
@@ -69,7 +71,7 @@ public class TestCli
                 "-B", "100", "-i"
             ],
             new CmdArgs("http://localhost:8080", "123456789", FormatType.Pdf, "/home/test/index.pdf", 25, 100, null,
-                null, true),
+                null, true, CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern),
             0,
             "Short Params");
         yield return new CliTestSet(
@@ -78,9 +80,18 @@ public class TestCli
                 "-B", "100"
             ],
             new CmdArgs("http://localhost:8080", "123456789", FormatType.Pdf, "/home/test/index.pdf", 25, 100, null,
-                null, false),
+                null, false, CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern),
             0,
             "Default ignore blank lines");
+        yield return new CliTestSet(
+            [
+                "-u", "http://localhost:8080", "-t", "123456789", "-f", "pdf", "-p", "/home/test/index.pdf", "-b", "25",
+                "-B", "100", "-df", "yyyy-mm-dd"
+            ],
+            new CmdArgs("http://localhost:8080", "123456789", FormatType.Pdf, "/home/test/index.pdf", 25, 100, null,
+                null, false, "yyyy-mm-dd"),
+            0,
+            "Override Date time Format");
     }
 
     private static IEnumerable<CliTestSet> GetFailArgsTests()

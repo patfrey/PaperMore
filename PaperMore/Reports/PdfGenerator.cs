@@ -127,11 +127,11 @@ public class PdfGenerator : GeneratorBase
                             table.Cell().Background(cellBackground)
                                 .Padding(cellPadding)
                                 .AlignCenter()
-                                .Text(item.DocumentDate.Date.ToShortDateString());
+                                .Text(item.DocumentDate.Date.ToString(FormatOptions.DateFormat));
                             table.Cell().Background(cellBackground)
                                 .Padding(cellPadding)
                                 .AlignCenter()
-                                .Text(item.AddedDate.Date.ToShortDateString());
+                                .Text(item.AddedDate.Date.ToString(FormatOptions.DateFormat));
                             table.Cell().Background(cellBackground)
                                 .Padding(cellPadding)
                                 .AlignRight()

@@ -7,7 +7,6 @@ namespace PaperMore.Tests;
 public class TestCsvGenerator
 {
     [Test]
-    [SetCulture("de-DE")]
     public void TestGeneration()
     {
         const string expectedDataHash = "895946a332232da40cf213f0b2b785dfcc140fab53f295534da0748f5d7a0365";
@@ -28,7 +27,8 @@ public class TestCsvGenerator
 
         using MemoryStream stream = new();
         CsvGenerator generator = new();
-        generator.Generate(testData, Defaults.DefaultSorting, Defaults.DefaultFilter(null, null, false), stream);
+        generator.Generate(testData, Defaults.DefaultSorting, Defaults.DefaultFilter(null, null, false),
+            new ExportFormatOptions("dd.MM.yyyy"), stream);
 
         byte[] actualDataHashBytes = SHA256.HashData(stream.ToArray());
         string actualDataHash = Convert.ToHexStringLower(actualDataHashBytes);

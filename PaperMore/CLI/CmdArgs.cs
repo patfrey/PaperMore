@@ -9,4 +9,5 @@ public record CmdArgs(
     int BatchSize,
     int? AsnRangeFrom,
     int? AsnRangeTo,
-    bool IgnoreBlankAsn);
+    bool IgnoreBlankAsn,
+    string DateFormat);
